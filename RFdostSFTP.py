@@ -13,8 +13,8 @@ from paramiko.py3compat import input
 paramiko.util.log_to_file("demo_sftp.log")
 
 # Paramiko client configuration
-UseGSSAPI = True  # enable GSS-API / SSPI authentication
-DoGSSAPIKeyExchange = True
+UseGSSAPI = False  # enable GSS-API / SSPI authentication
+DoGSSAPIKeyExchange = False
 Port = 22
 
 # get hostname
@@ -93,7 +93,7 @@ try:
         print("(assuming demo_sftp_folder/ already exists)")
     with sftp.open("demo_sftp_folder/README", "w") as f:
         f.write("This was created by demo_sftp.py.\n")
-    with open("demo_sftp.py", "r") as f:
+    with open("RFdostSFTP.py", "r") as f:
         data = f.read()
     sftp.open("demo_sftp_folder/demo_sftp.py", "w").write(data)
     print("created demo_sftp_folder/ on the server")
@@ -102,11 +102,11 @@ try:
     with sftp.open("demo_sftp_folder/README", "r") as f:
         data = f.read()
     with open("README_demo_sftp", "w") as f:
-        f.write(data)
+        f.write(str(data))
     print("copied README back here")
 
     # BETTER: use the get() and put() methods
-    sftp.put("demo_sftp.py", "demo_sftp_folder/demo_sftp.py")
+    sftp.put("RFdostSFTP.py", "demo_sftp_folder/demo_sftp.py")
     sftp.get("demo_sftp_folder/README", "README_demo_sftp")
 
     t.close()
